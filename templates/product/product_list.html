@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% load humanize %}
+{% block title %}Product{% endblock title %}
+{% block content %}
+    <div class="container-fluid my-3"><h1>Welcome to Product Page!</h1> </div>
+    <div class="container-fluid my-2">
+        <div class="row row-cols-3">
+            {% for product in product_list %}
+                <div class="col my-3">
+                    <p>Product: <a href="{}">{{ product.product_name }}</a></p>
+                    <p>Vendor: <a href="{}">{{ product.vendor }}</a></p> 
+                    <div class="container-fluid">
+                        {% if product.cover %}
+                            <img class="img-thumbnail" style="height:200px" src='{{ product.cover.url }}' alt="{{ product.title }}">
+                        {% else %}
+                            <img class="img-thumbnail" style="height:200px"  src='/media/covers/images.jpeg' alt="{{ product.title }}">
+                        {% endif %}
+                    </div>
+                    <p class="my-2"><b>Price: </b>{{ product.price | intcomma }} VND</p> 
+                    <form class="d-flex justify-content-left my-2">
+                        <!-- Default input -->
+                        <input type="number" value="1" aria-label="Search" class="form-control" style="width: 50px">
+                        <button class="btn btn-primary btn-md ml-3 p" type="submit" style="width: auto">
+                          Add to cart
+                          <i class="fas fa-shopping-cart ml-1" ></i>
+                        </button>
+                    </form>
+                    {% comment %} <a href="{{ product.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+                        Add to cart
+                        <i class="fas fa-shopping-cart ml-1"></i>
+                    </a>
+                    <a href="{{ product.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
+                        Remove from cart
+                    </a> {% endcomment %}
+                </div>
+            {% endfor %}
+        </div>  
+    </div>
+    
+{% endblock content %}
