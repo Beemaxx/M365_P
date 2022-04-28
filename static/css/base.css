@@ -1,0 +1,26 @@
+h1 {
+    color : rgb(8, 8, 8);
+}
+
+.bookcover {
+    height: 300px;
+    width: auto;
+}
+
+.logo2-img{
+    float: right;
+    position: absolute;
+}
+
+.searchbar{
+    width: 100%;
+}
+
+.img-thumbnail{
+    height: 200px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+

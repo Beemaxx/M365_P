@@ -20,7 +20,7 @@ environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print(BASE_DIR)
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,18 +44,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize', #add to avoid valid tag error
     
     #add Product page 27042022
     'product.apps.ProductConfig',
-    
+    'users.apps.UsersConfig',
     'crispy_forms',
     #add allauth
     'django.contrib.sites',
-
+    #allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'django.contrib.humanize',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    
+
 ]
 
 MIDDLEWARE = [
@@ -81,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -134,8 +139,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/' #static file
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #newAug14th
+STATIC_URL = 'static/' #static file
+STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static'),] #newAug14th
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #newAug14th
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder", #newAug14th
@@ -172,5 +177,20 @@ DEFAULT_FROM_EMAIL = 'ABC@TEST.COM' #newAug16th
 
 #setting media root #newAug16th
 
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/' #newAug16th
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+ACCOUNT_FORMS = {
+    'login': 'allauth.account.forms.LoginForm',
+    'signup': 'allauth.account.forms.SignupForm',
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+    'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}

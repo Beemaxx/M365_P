@@ -2,25 +2,25 @@
 {% load humanize %}
 {% block title %}Product{% endblock title %}
 {% block content %}
-    <div class="container-fluid my-3"><h1>Welcome to Product Page!</h1> </div>
+    <div class="container-fluid my-3"><h2>Welcome to Product Page!</h2> </div>
     <div class="container-fluid my-2">
         <div class="row row-cols-3">
             {% for product in product_list %}
                 <div class="col my-3">
-                    <p>Product: <a href="{}">{{ product.product_name }}</a></p>
-                    <p>Vendor: <a href="{}">{{ product.vendor }}</a></p> 
-                    <div class="container-fluid">
-                        {% if product.cover %}
-                            <img class="img-thumbnail" style="height:200px" src='{{ product.cover.url }}' alt="{{ product.title }}">
+                    <p><a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a></p>
+                    {% comment %} <p>Vendor: <a href="{}">{{ product.vendor }}</a></p>  {% endcomment %}
+                    <div >
+                        {% if product.photo %}
+                            <img class="img-thumbnail" style="height:200px" src='{{ product.photo.url }}' alt="{{ product.product_name }}">
                         {% else %}
-                            <img class="img-thumbnail" style="height:200px"  src='/media/covers/images.jpeg' alt="{{ product.title }}">
+                            <img class="img-thumbnail" style="height:200px"  src='/media/covers/images.jpeg' alt="{{ product.product_name }}">
                         {% endif %}
                     </div>
                     <p class="my-2"><b>Price: </b>{{ product.price | intcomma }} VND</p> 
                     <form class="d-flex justify-content-left my-2">
                         <!-- Default input -->
-                        <input type="number" value="1" aria-label="Search" class="form-control" style="width: 50px">
-                        <button class="btn btn-primary btn-md ml-3 p" type="submit" style="width: auto">
+                        {% comment %} <input type="number" value="1" aria-label="Search" class="form-control" style="width: 50px"> {% endcomment %}
+                        <button class="btn btn-outline-primary ml" type="submit" style="width: 50%">
                           Add to cart
                           <i class="fas fa-shopping-cart ml-1" ></i>
                         </button>

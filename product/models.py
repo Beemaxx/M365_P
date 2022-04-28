@@ -1,8 +1,10 @@
+from distutils.command.upload import upload
 from webbrowser import get
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.text import slugify 
 
 
 # Create your models here.
@@ -27,12 +29,20 @@ class Product(models.Model):
     #                                  MinValueValidator(1)
     #                              ])
     license_type = models.CharField(max_length=200, choices = License_type,default='e-license')
+    slug = models.SlugField(unique=True, blank = True)
+    photo = models.ImageField(upload_to = 'product', blank = True)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.product_name)
+        super().save(*args, **kwargs)
+        
     
     def __str__(self):
         return self.product_name
         
     def get_absolute_url(self):
-        return reverse("product_detail", kwargs={"pk": self.pk})
+        return reverse("product_detail", kwargs={
+            "slug": self.slug
+            })
     
     def get_add_to_cart_url(self):
         return reverse("add-to-cart", kwargs = {

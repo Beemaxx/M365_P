@@ -1,0 +1,34 @@
+{% extends '_base.html' %}
+
+<!--#load static image-->
+{% load static %} 
+
+{% block title %}Home Page{% endblock title %}
+{% block content %}
+<div class="cotainer my-3"><h2>Homepage</h2></div>
+
+<!--#load static image-->
+<!--img class="bookcover" src="{% static 'images/test image.jfif' %}"--> 
+{% if user.is_authenticated %}
+
+    <p>
+        Hi {{ user.username }}
+    </p>
+
+    <p>This is the homepage.</p>
+
+    <p><a href="{% url 'account_change_password' %}">Change password</a> here.</p> <!--change password Aug16th-->
+    <p><a href="{% url 'account_logout' %}">Log out now.</a></p> 
+
+    {% else %}
+    <p>You are not logged in</p>
+    <p> 
+            <a href="{% url 'account_login' %}">Log in</a> now or 
+            <a href="{% url 'account_signup' %}">Sign Up</a> Here.  
+    </p>
+    <p>Signed up but lost ? <a href="{% url 'account_reset_password' %}">Reset password</a> here.</p>
+   
+</div>
+{% endif %} 
+{% endblock content %}
+
